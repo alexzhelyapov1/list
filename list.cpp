@@ -30,6 +30,7 @@ int main () {
     list_add_first(list, 5);
     list_add_first(list, 6);
     list_add_first(list, 7);
+    list_add_last (list, 100);
     list_add_first(list, 8);
     list_add_last(list, 9);
     list_print(list);
@@ -65,7 +66,9 @@ void list_add_first (struct List* list, Data x) {
     }
     struct Node* temp_node = list -> head;
     list -> head = node_create (x);
-    list -> head -> next = temp_node;
+    if (list -> head) {
+        list -> head -> next = temp_node;
+    }
 }
 
 void list_add_last (struct List* list, Data x) {
@@ -81,7 +84,13 @@ void list_add_last (struct List* list, Data x) {
 }
 
 struct Node* last_node (struct List* list) {
+    if (!list) {
+        return NULL;
+    }
     struct Node* node = list -> head;
+    if (!node) {
+        return NULL;
+    }
     while (node -> next) {
         node = node -> next;
     }
@@ -93,6 +102,9 @@ struct Node* semi_last_node (struct List* list) {
         return NULL;
     }
     struct Node* node = list -> head;
+    if (!node) {
+        return NULL;
+    }
     if (node -> next == NULL) {
         return NULL;
     }
